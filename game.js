@@ -1,23 +1,27 @@
 game = Object.create(Game.prototype);
 game.keys = ['A', 'S', 'D', 'F'];
+var updated = 10
+ 
 for (var i = 0; i < game.keys.length; i++){
   atom.input.bind(atom.key[game.keys[i]], game.keys[i]);
 };
-var change = 3;
-setInterval(function () {
-  change = change/ 1.5;
-}
-, 3000);
-
 atom.currentMoleTime = 0;
-atom.tillNewMole = change;
 game.update = function(dt) {
+  atom.tillNewMole = updated;
+ // confirm(updated);
+
   atom.currentMoleTime = atom.currentMoleTime + dt;
   if (atom.currentMoleTime > atom.tillNewMole){
     game.activeMole = Math.floor(Math.random()*4);
     atom.currentMoleTime = 0;
     if(game.bop.bopped === false){
       game.bop.total = game.bop.total-1;
+      updated = updated *2;
+      if (updated > 10)
+      {
+       updated =10;
+      }
+      this.total = this.total-1;
     }
     else{
       game.bop.bopped = false;
@@ -42,8 +46,19 @@ game.bop = {
       this.total = this.total+1;
       game.activeMole = -1;
       this.bopped = true;
+      if(updated > .5){
+     updated = updated/1.1;}
+   else{
+    updated = .5;
+   }
+     //alert(this.updated);
     }
     else{
+      updated = updated *4;
+      if (updated > 10)
+      {
+       updated =10;
+      }
       this.total = this.total-1;
     }
   }

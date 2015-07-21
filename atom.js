@@ -173,18 +173,17 @@ Game = (function() {
   };
       var updated = 1000;
 
- setInterval(function () {
-  updated = updated/1.2;
-  if (updated < 80)
+ /*setInterval(function () {
+  if (updated < 300)
   {
-    updated = 80;
+    updated = 300;
   }
-  }, 3000); 
+  }, 3000); */
   Game.prototype.step = function() {
     var dt, now;
 
     now = Date.now();
-    dt = (now - this.last_step) / updated;
+    dt = (now - this.last_step) / 500;
     this.last_step = now;
     this.update(dt);
     this.draw();
